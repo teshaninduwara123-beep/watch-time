@@ -5,208 +5,82 @@
 <title>WatchTime — Track What You Watch</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-:root{--bg:#09090d;--panel:#111118;--panel2:#18181f;--line:#272731;--muted:#9a9aa5;--text:#fff;--pink:#ff315c;--green:#32d583;--yellow:#ffc857}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:14px Inter,Arial,sans-serif}
-button,input{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}
-aside{width:240px;background:#0d0d12;border-right:1px solid var(--line);position:fixed;inset:0 auto 0 0;padding:26px 16px;z-index:20}
-.logo{font-size:26px;font-weight:900;color:var(--pink);padding:0 12px 32px}.logo span{color:#fff}
-.navbtn{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;color:#9d9da8;padding:13px 12px;border-radius:9px;text-align:left;margin:3px 0}
-.navbtn:hover,.navbtn.active{background:#1b1b23;color:#fff}.navbtn.active{color:var(--pink)}
-.side-title{color:#666875;font-size:11px;text-transform:uppercase;padding:25px 12px 8px;letter-spacing:1px}
-main{margin-left:240px;width:calc(100% - 240px)}
-.top{height:70px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 35px;gap:18px;position:sticky;top:0;background:#09090df2;backdrop-filter:blur(12px);z-index:10}
-.search{max-width:430px;width:100%;background:#15151d;border:1px solid var(--line);border-radius:24px;padding:11px 18px;color:#fff;outline:none}.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff315c,#8b5cf6);display:grid;place-items:center;font-weight:800}
-.page{padding:32px 35px}.hero{min-height:330px;border-radius:16px;overflow:hidden;display:flex;align-items:flex-end;padding:36px;background:linear-gradient(90deg,#111 5%,#111c 48%,transparent),url('https://image.tmdb.org/t/p/original/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg') center/cover;margin-bottom:38px}
-.hero h1{font-size:44px;margin:0 0 10px}.hero p{max-width:570px;color:#ccc;line-height:1.65;margin:0 0 20px}.btn{border:0;border-radius:8px;background:var(--pink);color:#fff;font-weight:800;padding:11px 18px}.btn.alt{background:#282832}.section{margin:30px 0}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.section-head h2{margin:0;font-size:20px}.muted{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:18px}.card{background:var(--panel);border:1px solid #191922;border-radius:10px;overflow:hidden;transition:.2s;position:relative}.card:hover{transform:translateY(-5px);border-color:#383844}.poster{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;background:#222}.info{padding:11px}.name{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sub{color:var(--muted);font-size:12px;margin-top:6px}.star{color:var(--yellow)}
-.progress{height:4px;background:#292932;margin-top:9px;border-radius:4px;overflow:hidden}.progress i{display:block;height:100%;background:var(--pink)}
-.badge{position:absolute;top:9px;left:9px;background:#000b;border:1px solid #444;padding:5px 7px;border-radius:6px;font-size:11px}
-.empty{border:1px dashed #34343e;padding:35px;border-radius:12px;text-align:center;color:var(--muted)}
-.profile{display:grid;grid-template-columns:180px 1fr;gap:28px;align-items:center;background:var(--panel);padding:25px;border:1px solid var(--line);border-radius:15px}.bigavatar{width:130px;height:130px;border-radius:50%;display:grid;place-items:center;font-size:42px;font-weight:900;background:linear-gradient(135deg,#ff315c,#7c3aed)}.stats{display:flex;gap:30px;margin-top:18px}.stat b{display:block;font-size:22px}.stat span{color:var(--muted);font-size:12px}
+:root{--bg:#09090d;--panel:#111118;--panel2:#18181f;--line:#292932;--muted:#9a9aa5;--text:#fff;--pink:#ff315c;--green:#32d583;--yellow:#ffc857;--blue:#6ea8fe}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:14px Inter,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}
+aside{width:245px;background:#0d0d12;border-right:1px solid var(--line);position:fixed;inset:0 auto 0 0;padding:24px 14px;z-index:20;overflow:auto}.logo{font-size:26px;font-weight:900;color:var(--pink);padding:0 12px 28px;cursor:pointer;letter-spacing:-1px}.logo span{color:#fff}.navbtn{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;color:#9d9da8;padding:11px 12px;border-radius:9px;text-align:left;margin:3px 0}.navbtn:hover,.navbtn.active{background:#1b1b23;color:#fff}.navbtn.active{color:var(--pink)}.side-title{color:#666875;font-size:11px;text-transform:uppercase;padding:22px 12px 8px;letter-spacing:1px}.library-link{display:flex;align-items:center;justify-content:space-between}.count{font-size:11px;color:#777}.custom-tools{display:flex;gap:7px;margin:8px 4px}.smallbtn{border:1px solid #3a3a45;background:#18181f;color:#fff;border-radius:7px;padding:7px 9px;font-size:12px}.smallbtn:hover{border-color:#666}
+main{margin-left:245px;width:calc(100% - 245px)}.top{height:70px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 35px;gap:14px;position:sticky;top:0;background:#09090df2;backdrop-filter:blur(12px);z-index:10}.search{max-width:430px;width:100%;background:#15151d;border:1px solid var(--line);border-radius:24px;padding:11px 18px;color:#fff;outline:none}.search:focus{border-color:#555}.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff315c,#8b5cf6);display:grid;place-items:center;font-weight:800;flex:none}.drive-status{font-size:12px;color:var(--muted);display:none}.page{padding:32px 35px;animation:pageIn .28s ease}@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.hero{min-height:330px;border-radius:16px;overflow:hidden;display:flex;align-items:flex-end;padding:36px;background:linear-gradient(90deg,#111 5%,#111c 48%,transparent),url('https://image.tmdb.org/t/p/original/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg') center/cover;margin-bottom:38px}.hero h1{font-size:44px;margin:0 0 10px}.hero p{max-width:570px;color:#ccc;line-height:1.65;margin:0 0 20px}.btn{border:0;border-radius:8px;background:var(--pink);color:#fff;font-weight:800;padding:11px 18px}.btn.alt{background:#282832}.btn.green{background:var(--green);color:#07150e}.btn.blue{background:#315fbb}.section{margin:30px 0}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:12px}.section-head h2{margin:0;font-size:20px}.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:18px}.card{background:var(--panel);border:1px solid #191922;border-radius:10px;overflow:hidden;transition:.2s;position:relative}.card:hover{transform:translateY(-5px);border-color:#383844}.poster{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;background:#222}.info{padding:11px}.name{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sub{color:var(--muted);font-size:12px;margin-top:6px}.star{color:var(--yellow)}.progress{height:4px;background:#292932;margin-top:9px;border-radius:4px;overflow:hidden}.progress i{display:block;height:100%;background:var(--pink)}.badge{position:absolute;top:9px;left:9px;background:#000b;border:1px solid #444;padding:5px 7px;border-radius:6px;font-size:11px}.fav{position:absolute;right:8px;top:8px;background:#000b;border:1px solid #444;width:30px;height:30px;border-radius:50%;color:#fff}.fav.on{color:var(--pink)}.empty{border:1px dashed #34343e;padding:35px;border-radius:12px;text-align:center;color:var(--muted)}
+.profile{display:grid;grid-template-columns:150px 1fr;gap:28px;align-items:center;background:var(--panel);padding:25px;border:1px solid var(--line);border-radius:15px}.bigavatar{width:130px;height:130px;border-radius:50%;display:grid;place-items:center;font-size:42px;font-weight:900;background:linear-gradient(135deg,#ff315c,#7c3aed)}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin-top:18px}.stat{background:#18181f;border:1px solid #2a2a34;padding:15px;border-radius:10px}.stat b{display:block;font-size:22px}.stat span{color:var(--muted);font-size:12px}.analytics{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}.metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}.metric b{font-size:25px}.metric span{display:block;color:var(--muted);font-size:12px;margin-top:5px}.bar{height:8px;background:#292932;border-radius:9px;overflow:hidden;margin-top:10px}.bar i{display:block;height:100%;background:var(--pink)}
+.list-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}.list-tab{border:1px solid #353540;background:#16161d;color:#bbb;border-radius:20px;padding:8px 13px}.list-tab.active{background:#2a1720;border-color:#7c263d;color:#fff}.list-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel);border:1px solid var(--line);padding:13px;border-radius:10px;margin:8px 0}.list-row h3{margin:0;font-size:15px}.list-row p{margin:4px 0 0;color:var(--muted);font-size:12px}
 .calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.day{min-height:105px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px}.day strong{font-size:12px}.dot{margin-top:9px;color:var(--pink);font-size:11px}
-.modal{display:none;position:fixed;inset:0;background:#000d;z-index:50;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.box{width:min(900px,100%);max-height:92vh;overflow:auto;background:#15151b;border:1px solid #30303a;border-radius:15px;position:relative}.back{height:300px;background:center/cover}.back:after{content:"";display:block;height:100%;background:linear-gradient(transparent,#15151b)}.close{position:absolute;right:16px;top:14px;z-index:3;width:36px;height:36px;border:0;border-radius:50%;background:#000b;color:#fff;font-size:20px}.content{padding:0 32px 30px;margin-top:-65px;position:relative}.content h2{font-size:32px;margin:0 0 8px}.overview{color:#ccc;line-height:1.7}.actions{display:flex;gap:10px;flex-wrap:wrap}.season{margin-top:26px}.episode{display:flex;justify-content:space-between;gap:15px;align-items:center;background:#202027;padding:13px;border-radius:8px;margin:7px 0}.episode small{color:var(--muted)}.episode button{border:1px solid #555;background:transparent;color:#fff;padding:7px 10px;border-radius:6px}.episode button.done{background:var(--green);border-color:var(--green);color:#06130d}
-.toast{position:fixed;right:20px;bottom:20px;background:#22222a;border:1px solid #444;padding:12px 16px;border-radius:9px;display:none;z-index:100}
-@media(max-width:800px){aside{width:64px;padding:20px 8px}.logo{font-size:0;padding:0 8px 25px}.logo:after{content:'W';font-size:25px;color:var(--pink)}.navbtn span,.side-title{display:none}main{margin-left:64px;width:calc(100% - 64px)}.top{padding:0 15px}.page{padding:20px 15px}.hero{padding:25px;min-height:320px}.hero h1{font-size:34px}.profile{grid-template-columns:1fr;text-align:center}.bigavatar{margin:auto}.stats{justify-content:center}.calendar{grid-template-columns:repeat(2,1fr)}}
+.modal{display:none;position:fixed;inset:0;background:#000d;z-index:50;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.box{width:min(960px,100%);max-height:92vh;overflow:auto;background:#15151b;border:1px solid #30303a;border-radius:15px;position:relative}.back{height:300px;background:center/cover}.back:after{content:"";display:block;height:100%;background:linear-gradient(transparent,#15151b)}.close{position:absolute;right:16px;top:14px;z-index:3;width:36px;height:36px;border:0;border-radius:50%;background:#000b;color:#fff;font-size:20px}.content{padding:0 32px 30px;margin-top:-65px;position:relative}.content h2{font-size:32px;margin:0 0 8px}.overview{color:#ccc;line-height:1.7}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}.list-picker{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.list-chip{border:1px solid #444;background:#202027;color:#ddd;border-radius:18px;padding:7px 11px}.list-chip.on{border-color:var(--pink);background:#32121d;color:#fff}.season{margin-top:26px;border-top:1px solid #292932;padding-top:18px}.season-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.episode{display:flex;justify-content:space-between;gap:15px;align-items:center;background:#202027;padding:13px;border-radius:8px;margin:7px 0}.episode small{color:var(--muted)}.episode button{border:1px solid #555;background:transparent;color:#fff;padding:7px 10px;border-radius:6px}.episode button.done{background:var(--green);border-color:var(--green);color:#06130d}.season-block{margin-top:18px}.season-title{font-weight:800}.toast{position:fixed;right:20px;bottom:20px;background:#22222a;border:1px solid #444;padding:12px 16px;border-radius:9px;display:none;z-index:100}.confirm{max-width:450px;padding:25px}.input{width:100%;background:#101017;color:#fff;border:1px solid #3a3a45;padding:11px;border-radius:8px;outline:none}.form-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:15px}
+@media(max-width:800px){aside{width:64px;padding:20px 8px}.logo{font-size:0;padding:0 8px 25px}.logo:after{content:'W';font-size:25px;color:var(--pink)}.navbtn span,.side-title,.library-link .count,.custom-tools{display:none}main{margin-left:64px;width:calc(100% - 64px)}.top{padding:0 15px}.page{padding:20px 15px}.hero{padding:25px;min-height:320px}.hero h1{font-size:34px}.profile{grid-template-columns:1fr;text-align:center}.bigavatar{margin:auto}.calendar{grid-template-columns:repeat(2,1fr)}.drive-status{display:none}.episode{align-items:flex-start;flex-direction:column}}
 </style></head>
 <body>
-<div class="app">
-<aside>
-<div class="logo">Watch<span>Time</span></div>
-<button class="navbtn active" data-page="home">🏠 <span>Home</span></button>
-<button class="navbtn" data-page="discover">🔎 <span>Discover</span></button>
-<button class="navbtn" data-page="watchlist">❤️ <span>Watchlist</span></button>
-<button class="navbtn" data-page="calendar">📅 <span>Calendar</span></button>
-<button class="navbtn" data-page="profile">👤 <span>Profile</span></button>
-<div class="side-title">Your library</div>
-<button class="navbtn" data-page="watched">✓ <span>Watched</span></button>
-</aside>
-<main>
-<header class="top"><input id="search" class="search" placeholder="Search TV shows..."><button id="driveBtn" class="btn alt" style="margin-left:auto;padding:9px 13px" onclick="connectDrive()">☁ Connect Drive</button><div class="avatar">W</div></header>
-<div class="page" id="page"></div>
-</main></div>
-<div class="modal" id="modal"><div class="box"><button class="close" onclick="closeModal()">×</button><div class="back" id="back"></div><div class="content"><h2 id="mtitle"></h2><div class="muted" id="mmeta"></div><p class="overview" id="moverview"></p><div class="actions"><button class="btn" id="watchBtn"></button><button class="btn alt" onclick="closeModal()">Close</button></div><div class="season"><h3>Episodes</h3><div id="episodes"></div></div></div></div></div>
+<div class="app"><aside>
+<div class="logo" onclick="go('home')">Watch<span>Time</span></div>
+<button class="navbtn active" data-page="home">🏠 <span>Home</span></button><button class="navbtn" data-page="discover">🔎 <span>Discover</span></button><button class="navbtn" data-page="calendar">📅 <span>Calendar</span></button><button class="navbtn" data-page="profile">👤 <span>Profile & Analytics</span></button>
+<div class="side-title">Your library</div><div id="libraryNav"></div><div class="custom-tools"><button class="smallbtn" onclick="newList()">＋ New list</button><button class="smallbtn" onclick="manageLists()">⚙ Lists</button></div>
+</aside><main><header class="top"><input id="search" class="search" placeholder="Search TV shows..."><span id="driveStatus" class="drive-status">Drive connected</span><button id="driveBtn" class="btn alt" style="margin-left:auto;padding:9px 13px" onclick="connectDrive()">☁ Connect Drive</button><div class="avatar" id="avatar">W</div></header><div class="page" id="page"></div></main></div>
+<div class="modal" id="modal"><div class="box"><button class="close" onclick="closeModal()">×</button><div class="back" id="back"></div><div class="content"><h2 id="mtitle"></h2><div class="muted" id="mmeta"></div><p class="overview" id="moverview"></p><div class="actions"><button class="btn" id="watchBtn"></button><button class="btn alt" id="favBtn"></button><button class="btn alt" onclick="closeModal()">Close</button></div><div><b>Add to lists</b><div id="listPicker" class="list-picker"></div></div><div class="season"><div class="season-head"><h3>Episodes</h3><span class="muted" id="episodeSummary"></span></div><div id="episodes">Loading episodes...</div></div></div></div></div>
+<div class="modal" id="formModal"><div class="box confirm"><button class="close" onclick="closeForm()">×</button><h2 id="formTitle">New list</h2><p class="muted">Choose a name for your library list.</p><input id="listNameInput" class="input" maxlength="40" placeholder="e.g. Anime, Weekend, Rewatch"><div class="form-actions"><button class="btn alt" onclick="closeForm()">Cancel</button><button class="btn" onclick="createListFromForm()">Create</button></div></div></div>
 <div class="toast" id="toast"></div>
 <script>
 const IMG='https://image.tmdb.org/t/p/w500',BACK='https://image.tmdb.org/t/p/original';
-const state={page:'home',watch:JSON.parse(localStorage.getItem('wt_watch')||'[]'),watched:JSON.parse(localStorage.getItem('wt_watched')||'{}'),current:null};
+const DEFAULT_LISTS={"plan":"Plan to Watch","favorites":"Favorites"};
+const state={page:'home',current:null,watch:JSON.parse(localStorage.getItem('wt_watch')||'[]'),watched:JSON.parse(localStorage.getItem('wt_watched')||'{}'),episodeMeta:JSON.parse(localStorage.getItem('wt_episode_meta')||'{}'),lists:JSON.parse(localStorage.getItem('wt_lists')||'null')||{},listShows:JSON.parse(localStorage.getItem('wt_list_shows')||'{}'),driveEmail:localStorage.getItem('wt_drive_email')||'',driveConnected:false};
 const page=document.getElementById('page');
 const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function uid(){return 'list_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)}
+function ensureLists(){if(!state.lists.plan)state.lists.plan=DEFAULT_LISTS.plan;if(!state.lists.favorites)state.lists.favorites=DEFAULT_LISTS.favorites;if(!state.listShows.plan)state.listShows.plan=[...new Set(state.watch||[])];if(!state.listShows.favorites)state.listShows.favorites=[];saveLocal()}
+function saveLocal(){localStorage.setItem('wt_watch',JSON.stringify(state.watch));localStorage.setItem('wt_watched',JSON.stringify(state.watched));localStorage.setItem('wt_episode_meta',JSON.stringify(state.episodeMeta));localStorage.setItem('wt_lists',JSON.stringify(state.lists));localStorage.setItem('wt_list_shows',JSON.stringify(state.listShows));if(state.driveEmail)localStorage.setItem('wt_drive_email',state.driveEmail)}
+function toast(x){const t=document.getElementById('toast');t.textContent=x;t.style.display='block';clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.style.display='none',1800)}
 async function api(path){const r=await fetch('/api/tmdb?path='+encodeURIComponent(path));if(!r.ok)throw Error('API error');return r.json()}
-function save(){localStorage.setItem('wt_watch',JSON.stringify(state.watch));localStorage.setItem('wt_watched',JSON.stringify(state.watched))}
-function toast(x){const t=document.getElementById('toast');t.textContent=x;t.style.display='block';setTimeout(()=>t.style.display='none',1800)}
-function card(s){const watchedCount=Object.keys(state.watched).filter(k=>k.startsWith(s.id+'-')).length;return `<div class="card" onclick='openShow(${JSON.stringify(s).replace(/'/g,"&#39;")})'><img class="poster" src="${IMG}${s.poster_path||''}"><div class="info"><div class="name">${esc(s.name)}</div><div class="sub"><span class="star">★</span> ${(s.vote_average||0).toFixed(1)} · ${(s.first_air_date||'').slice(0,4)}</div>${watchedCount?`<div class="progress"><i style="width:${Math.min(100,watchedCount*10)}%"></i></div>`:''}</div>${state.watch.includes(s.id)?'<span class="badge">♥ In list</span>':''}</div>`}
+function isFav(id){return (state.listShows.favorites||[]).includes(Number(id))}
+function inList(name,id){return (state.listShows[name]||[]).includes(Number(id))}
+function watchedCount(id){return Object.keys(state.watched).filter(k=>k.startsWith(id+'-')).length}
+function card(s){const id=Number(s.id);const wc=watchedCount(id);return `<div class="card" onclick='openShow(${JSON.stringify(s).replace(/'/g,"&#39;")})'><button class="fav ${isFav(id)?'on':''}" onclick="event.stopPropagation();toggleFavorite(${id})">${isFav(id)?'♥':'♡'}</button><img class="poster" src="${IMG}${s.poster_path||''}"><div class="info"><div class="name">${esc(s.name)}</div><div class="sub"><span class="star">★</span> ${(s.vote_average||0).toFixed(1)} · ${(s.first_air_date||'').slice(0,4)}</div>${wc?`<div class="progress"><i style="width:${Math.min(100,wc*10)}%"></i></div>`:''}</div>${inList('plan',id)?'<span class="badge">Plan to Watch</span>':''}</div>`}
 function render(title,items,extra=''){page.innerHTML=`${extra}<div class="section"><div class="section-head"><h2>${title}</h2><span class="muted">${items.length} shows</span></div><div class="grid">${items.length?items.map(card).join(''):'<div class="empty">Nothing here yet.</div>'}</div></div>`}
-async function home(){try{const d=await api('/trending/tv/week');const items=d.results||[];page.innerHTML=`<section class="hero"><div><h1>Track what you watch.</h1><p>Discover shows, follow episodes, build your watchlist and keep your viewing history in one place.</p><button class="btn" onclick="go('discover')">Discover shows</button></div></section>`;page.innerHTML+=`<div class="section"><div class="section-head"><h2>Trending this week</h2></div><div class="grid">${items.slice(0,12).map(card).join('')}</div></div>`}catch(e){page.innerHTML='<div class="empty">TMDB could not be loaded. Check your Vercel API key.</div>'}}
+async function home(){try{const d=await api('/trending/tv/week');const items=d.results||[];page.innerHTML=`<section class="hero"><div><h1>Track what you watch.</h1><p>Discover shows, follow every episode, build unlimited library lists and keep your viewing history in one place.</p><button class="btn" onclick="go('discover')">Discover shows</button></div></section><div class="section"><div class="section-head"><h2>Trending this week</h2></div><div class="grid">${items.slice(0,12).map(card).join('')}</div></div>`}catch(e){page.innerHTML='<div class="empty">TMDB could not be loaded. Check your Vercel API key.</div>'}}
 async function discover(q=''){try{const d=q?await api('/search/tv?query='+encodeURIComponent(q)):await api('/tv/popular');render(q?'Search results':'Popular TV shows',d.results||[])}catch(e){page.innerHTML='<div class="empty">Unable to load shows.</div>'}}
-async function watchlist(){const shows=await Promise.all(state.watch.map(id=>api('/tv/'+id).catch(()=>null)));render('My Watchlist',shows.filter(Boolean))}
-async function watched(){const ids=[...new Set(Object.keys(state.watched).map(k=>k.split('-')[0]))];const shows=await Promise.all(ids.map(id=>api('/tv/'+id).catch(()=>null)));render('Watched shows',shows.filter(Boolean))}
-function calendar(){let now=new Date(), days=[];for(let i=0;i<21;i++){let d=new Date(now);d.setDate(now.getDate()+i);days.push(`<div class="day"><strong>${d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}</strong><div class="dot">• Upcoming episodes</div></div>`)}page.innerHTML=`<div class="section-head"><h2>Upcoming calendar</h2></div><p class="muted">A calendar foundation is included; episode air-date syncing can be added to your database/backend.</p><div class="calendar">${days.join('')}</div>`}
-function profile(){const watchedCount=Object.keys(state.watched).length;page.innerHTML=`<div class="profile"><div class="bigavatar">W</div><div><h1 style="margin:0">WatchTime User</h1><p class="muted">Your personal TV tracking profile</p><p class="muted">Google Drive backup: <b></b></p><div class="stats"><div class="stat"><b>${state.watch.length}</b><span>Watchlist</span></div><div class="stat"><b>${watchedCount}</b><span>Episodes watched</span></div><div class="stat"><b>${new Set(Object.keys(state.watched).map(x=>x.split('-')[0])).size}</b><span>Shows</span></div></div></div></div>`}
-async function go(p){state.page=p;document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===p));if(p==='home')home();else if(p==='discover')discover();else if(p==='watchlist')watchlist();else if(p==='watched')watched();else if(p==='calendar')calendar();else profile()}
-document.querySelectorAll('.navbtn').forEach(b=>b.onclick=()=>go(b.dataset.page));
-document.getElementById('search').addEventListener('keydown',e=>{if(e.key==='Enter'){go('discover');discover(e.target.value.trim())}});
-async function openShow(s){state.current=s;document.getElementById('modal').classList.add('open');document.getElementById('back').style.backgroundImage=`url(${BACK}${s.backdrop_path||s.poster_path||''})`;document.getElementById('mtitle').textContent=s.name;document.getElementById('mmeta').textContent=`${(s.first_air_date||'').slice(0,4)} · ★ ${(s.vote_average||0).toFixed(1)}`;document.getElementById('moverview').textContent=s.overview||'No overview available.';updateWatch();document.getElementById('episodes').innerHTML='Loading episodes...';try{const d=await api('/tv/'+s.id);const seasons=(d.seasons||[]).filter(x=>x.season_number>0);const season=seasons[0];if(!season){document.getElementById('episodes').innerHTML='No episodes available.';return}const ep=await api('/tv/'+s.id+'/season/'+season.season_number);document.getElementById('episodes').innerHTML=(ep.episodes||[]).map(x=>{const key=s.id+'-'+x.id,done=!!state.watched[key];return `<div class="episode"><span><b>E${x.episode_number}</b> — ${esc(x.name)}<br><small>${x.air_date||''}</small></span><button class="${done?'done':''}" onclick="toggleEp('${key}',this)">${done?'✓ Watched':'Mark watched'}</button></div>`}).join('')}catch(e){document.getElementById('episodes').innerHTML='Episode data unavailable.'}}
-function updateWatch(){document.getElementById('watchBtn').textContent=state.watch.includes(state.current.id)?'✓ In Watchlist':'+ Add to Watchlist';document.getElementById('watchBtn').onclick=()=>{const id=state.current.id;if(state.watch.includes(id))state.watch=state.watch.filter(x=>x!==id);else state.watch.push(id);backupProgress();updateWatch();toast(state.watch.includes(id)?'Added to watchlist':'Removed from watchlist')}}
-function toggleEp(key,b){if(state.watched[key])delete state.watched[key];else state.watched[key]=true;backupProgress();b.classList.toggle('done',!!state.watched[key]);b.textContent=state.watched[key]?'✓ Watched':'Mark watched';toast(state.watched[key]?'Episode marked watched':'Episode unmarked')}
+async function listPage(key){const ids=[...new Set(state.listShows[key]||[])];const shows=await Promise.all(ids.map(id=>api('/tv/'+id).catch(()=>null)));render(state.lists[key]||'Library',shows.filter(Boolean),`<div class="section-head"><div><h2>${esc(state.lists[key]||'Library')}</h2><p class="muted">${ids.length} saved shows</p></div><button class="btn alt" onclick="manageLists()">Manage lists</button></div>`)}
+async function watched(){const ids=[...new Set(Object.keys(state.watched).map(k=>k.split('-')[0]))];const shows=await Promise.all(ids.map(id=>api('/tv/'+id).catch(()=>null)));render('Watched',shows.filter(Boolean),'<p class="muted">Shows with at least one episode marked watched.</p>')}
+function calendar(){let now=new Date(),days=[];for(let i=0;i<21;i++){let d=new Date(now);d.setDate(now.getDate()+i);days.push(`<div class="day"><strong>${d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}</strong><div class="dot">• Upcoming episodes</div></div>`)}page.innerHTML=`<div class="section-head"><h2>Upcoming calendar</h2></div><p class="muted">Your calendar view is ready for episode air-date data. The current version keeps the foundation without inventing schedule data.</p><div class="calendar">${days.join('')}</div>`}
+function formatHours(min){if(!min)return '0h';const h=Math.floor(min/60),m=min%60;return h?`${h}h ${m}m`:`${m}m`}
+function analytics(){const watchedKeys=Object.keys(state.watched);const shows=new Set(watchedKeys.map(x=>x.split('-')[0]));const animeShows=Object.values(state.episodeMeta).filter(x=>x.watched&&x.isAnime).reduce((a,x)=>a+x.minutes,0);const totalMin=watchedKeys.reduce((a,k)=>a+(state.episodeMeta[k]?.minutes||0),0);const movies=0;const seasons={};watchedKeys.forEach(k=>{const m=state.episodeMeta[k];if(m?.season!=null){const sk=k.split('-')[0]+'-'+m.season;seasons[sk]=(seasons[sk]||0)+1}});const completed=Object.values(seasons).filter(n=>n>0).length;return {watchedKeys,shows,totalMin,animeMin:animeShows,movies,seasons:completed}}
+function profile(){const a=analytics();const listCount=Object.keys(state.lists).length;const watchedCount=a.watchedKeys.length;const genres={};Object.values(state.episodeMeta).forEach(x=>(x.genres||[]).forEach(g=>genres[g]=(genres[g]||0)+1));const topGenres=Object.entries(genres).sort((a,b)=>b[1]-a[1]).slice(0,5);page.innerHTML=`<div class="profile"><div class="bigavatar">W</div><div><h1 style="margin:0">WatchTime User</h1><p class="muted">Your personal TV tracking profile</p><p class="muted">${state.driveEmail?'Google Drive: '+esc(state.driveEmail):'Google Drive: not connected'}</p></div></div><div class="section"><div class="section-head"><h2>Watch analytics</h2><span class="muted">Based on your tracked episodes</span></div><div class="analytics"><div class="metric"><b>${formatHours(a.totalMin)}</b><span>Total watch time</span></div><div class="metric"><b>${a.shows.size}</b><span>TV series watched</span></div><div class="metric"><b>${watchedCount}</b><span>Episodes watched</span></div><div class="metric"><b>${a.seasons}</b><span>Seasons with activity</span></div><div class="metric"><b>${formatHours(a.animeMin)}</b><span>Anime watch time</span></div><div class="metric"><b>${listCount}</b><span>Library lists</span></div></div></div><div class="section"><div class="section-head"><h2>Genres in your watched episodes</h2></div>${topGenres.length?topGenres.map(([g,n])=>`<div style="margin:12px 0"><div style="display:flex;justify-content:space-between"><span>${esc(g)}</span><span class="muted">${n}</span></div><div class="bar"><i style="width:${Math.min(100,n*12)}%"></i></div></div>`).join(''):'<div class="empty">Genre data will appear as you mark episodes watched.</div>'}</div>`}
+async function go(p){state.page=p;document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===p));if(p==='home')home();else if(p==='discover')discover();else if(p==='calendar')calendar();else if(p==='profile')profile();else if(p==='watched')watched();else if(state.lists[p])listPage(p);}
+function renderLibraryNav(){ensureLists();const nav=document.getElementById('libraryNav');nav.innerHTML=`<button class="navbtn library-link ${state.page==='watched'?'active':''}" data-page="watched">✓ <span>Watched</span><small class="count">${Object.keys(state.watched).length}</small></button>`+Object.entries(state.lists).map(([k,n])=>`<button class="navbtn library-link ${state.page===k?'active':''}" data-page="${esc(k)}">${k==='favorites'?'♥':'▸'} <span>${esc(n)}</span><small class="count">${(state.listShows[k]||[]).length}</small></button>`).join('');nav.querySelectorAll('.navbtn').forEach(b=>b.onclick=()=>go(b.dataset.page))}
+function newList(){document.getElementById('formTitle').textContent='New list';document.getElementById('listNameInput').value='';document.getElementById('formModal').classList.add('open');setTimeout(()=>document.getElementById('listNameInput').focus(),50)}
+function createListFromForm(){const name=document.getElementById('listNameInput').value.trim();if(!name)return;const key=uid();state.lists[key]=name;state.listShows[key]=[];saveLocal();closeForm();renderLibraryNav();go(key);toast('List created')}
+function closeForm(){document.getElementById('formModal').classList.remove('open')}
+function manageLists(){const rows=Object.entries(state.lists).map(([k,n])=>`<div class="list-row"><div><h3>${esc(n)}</h3><p>${(state.listShows[k]||[]).length} shows</p></div>${k==='plan'||k==='favorites'?'<span class="muted">Built-in</span>':`<button class="smallbtn" onclick="deleteList('${k}')">Delete</button>`}</div>`).join('');page.innerHTML=`<div class="section-head"><h2>Manage your lists</h2><button class="btn" onclick="newList()">＋ New list</button></div><p class="muted">Create as many lists as you want. A show can belong to multiple lists.</p>${rows}`}
+function deleteList(k){if(!state.lists[k])return;if(!confirm('Delete this list? The shows will not be deleted from other lists.'))return;delete state.lists[k];delete state.listShows[k];saveLocal();renderLibraryNav();go('home');toast('List deleted')}
+document.querySelectorAll('.navbtn').forEach(b=>b.onclick=()=>go(b.dataset.page));document.getElementById('search').addEventListener('keydown',e=>{if(e.key==='Enter'){go('discover');discover(e.target.value.trim())}});
+function toggleFavorite(id){const a=state.listShows.favorites||[];state.listShows.favorites=a.includes(id)?a.filter(x=>x!==id):[...a,id];saveLocal();renderLibraryNav();if(state.current)updateFavorite();toast(a.includes(id)?'Added to Favorites':'Removed from Favorites')}
+function updateFavorite(){const b=document.getElementById('favBtn');if(!b)return;b.textContent=isFav(state.current.id)?'♥ Favorite':'♡ Add Favorite';b.onclick=()=>toggleFavorite(Number(state.current.id));renderListPicker()}
+function renderListPicker(){const wrap=document.getElementById('listPicker');if(!wrap||!state.current)return;wrap.innerHTML=Object.entries(state.lists).map(([k,n])=>`<button class="list-chip ${inList(k,state.current.id)?'on':''}" onclick="toggleList('${k}')">${inList(k,state.current.id)?'✓ ':''}${esc(n)}</button>`).join('')}
+function toggleList(k){if(!state.current)return;const id=Number(state.current.id);state.listShows[k]=state.listShows[k]||[];state.listShows[k]=state.listShows[k].includes(id)?state.listShows[k].filter(x=>x!==id):[...state.listShows[k],id];if(k==='plan')state.watch=state.listShows[k];saveLocal();renderLibraryNav();renderListPicker();updateWatch();toast(state.listShows[k].includes(id)?'Added to list':'Removed from list')}
+function updateWatch(){const b=document.getElementById('watchBtn');if(!b)return;const on=inList('plan',Number(state.current.id));b.textContent=on?'✓ Plan to Watch':'＋ Plan to Watch';b.onclick=()=>toggleList('plan')}
+async function openShow(s){state.current=s;document.getElementById('modal').classList.add('open');document.getElementById('back').style.backgroundImage=`url(${BACK}${s.backdrop_path||s.poster_path||''})`;document.getElementById('mtitle').textContent=s.name;document.getElementById('mmeta').textContent=`${(s.first_air_date||'').slice(0,4)} · ★ ${(s.vote_average||0).toFixed(1)}`;document.getElementById('moverview').textContent=s.overview||'No overview available.';updateWatch();updateFavorite();renderListPicker();document.getElementById('episodes').innerHTML='Loading seasons...';try{const d=await api('/tv/'+s.id);const seasons=(d.seasons||[]).filter(x=>x.season_number>0);let html='';for(const season of seasons){const ep=await api('/tv/'+s.id+'/season/'+season.season_number);const episodes=ep.episodes||[];const done=episodes.filter(x=>state.watched[s.id+'-'+x.id]).length;html+=`<div class="season-block"><div class="season-head"><div><div class="season-title">Season ${season.season_number}</div><span class="muted">${done}/${episodes.length} watched</span></div><button class="smallbtn" onclick="toggleSeason(${s.id},${season.season_number},${JSON.stringify(episodes).replace(/"/g,'&quot;')})">${done===episodes.length&&episodes.length?'Mark All Unwatched':'Watch All'}</button></div>${episodes.map(x=>{const key=s.id+'-'+x.id,wd=!!state.watched[key];return `<div class="episode"><span><b>E${x.episode_number}</b> — ${esc(x.name)}<br><small>${x.air_date||''}${x.runtime?' · '+x.runtime+' min':''}</small></span><button class="${wd?'done':''}" onclick="toggleEp(${s.id},${x.id},${x.runtime||0},${season.season_number},${JSON.stringify(s.genres||[]).replace(/"/g,'&quot;')},this)">${wd?'✓ Watched':'Mark watched'}</button></div>`}).join('')}</div>`}document.getElementById('episodes').innerHTML=html||'No episodes available.';document.getElementById('episodeSummary').textContent=`${seasons.length} season${seasons.length===1?'':'s'}`;state.currentShowData=d}catch(e){document.getElementById('episodes').innerHTML='Episode data unavailable.'}}
+function toggleEp(showId,epId,runtime,season,genres,b){const key=showId+'-'+epId;if(state.watched[key]){delete state.watched[key];delete state.episodeMeta[key]}else{state.watched[key]=true;state.episodeMeta[key]={minutes:Number(runtime)||0,season:Number(season),genres:Array.isArray(genres)?genres:[],isAnime:(Array.isArray(genres)?genres:[]).some(g=>String(g).toLowerCase().includes('animation')),watched:true,watchedAt:new Date().toISOString()}}saveLocal();backupProgress();b.classList.toggle('done',!!state.watched[key]);b.textContent=state.watched[key]?'✓ Watched':'Mark watched';toast(state.watched[key]?'Episode marked watched':'Episode unmarked');if(state.page==='profile')profile()}
+function toggleSeason(showId,season,episodes){const all=episodes.every(x=>state.watched[showId+'-'+x.id]);episodes.forEach(x=>{const key=showId+'-'+x.id;if(all){delete state.watched[key];delete state.episodeMeta[key]}else{state.watched[key]=true;state.episodeMeta[key]={minutes:Number(x.runtime)||0,season:Number(season),genres:Array.isArray(state.current?.genres)?state.current.genres:[],isAnime:(state.current?.genres||[]).some(g=>String(g).toLowerCase().includes('animation')),watched:true,watchedAt:new Date().toISOString()}}});saveLocal();backupProgress();openShow(state.current);toast(all?'Season marked unwatched':'All season episodes marked watched')}
 function closeModal(){document.getElementById('modal').classList.remove('open')}
 
-/* ================= GOOGLE DRIVE BACKUP =================
-   Uses Google's OAuth token client and the Drive appDataFolder.
-   The user's progress is stored in a hidden app-specific JSON file.
-*/
-const GOOGLE_CLIENT_ID = '119562103767-3jdsmbao6em287rn199n2cuceu0312k4.apps.googleusercontent.com';
-const DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
-const DRIVE_FILE_NAME = 'watchtime-progress.json';
-let driveToken = null;
-let driveFileId = localStorage.getItem('wt_drive_file_id') || null;
-let tokenClient = null;
-
-function driveReady(){
-  return GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('YOUR_');
-}
-function initGoogle(){
-  if(!driveReady() || !window.google?.accounts?.oauth2) return;
-  tokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: GOOGLE_CLIENT_ID,
-    scope: DRIVE_SCOPE,
-    callback: async (resp)=>{
-      if(resp.error){ toast('Google Drive authorization failed'); return; }
-      driveToken = resp.access_token;
-      updateDriveButton(true);
-      await syncFromDrive();
-    }
-  });
-}
-window.addEventListener('load', ()=>setTimeout(initGoogle,700));
-
-function updateDriveButton(connected){
-  const b=document.getElementById('driveBtn');
-  if(!b) return;
-  b.textContent=connected?'☁ Drive connected':'☁ Connect Drive';
-}
-
-function connectDrive(){
-  if(!driveReady()){
-    alert('Add your Google OAuth Web Client ID in public/index.html first.');
-    return;
-  }
-  if(!tokenClient) initGoogle();
-  setTimeout(()=>tokenClient?.requestAccessToken({prompt: driveToken?'':'consent'}),300);
-}
-
-function drivePayload(){
-  return JSON.stringify({
-    version:1,
-    savedAt:new Date().toISOString(),
-    watch:state.watch,
-    watched:state.watched
-  });
-}
-
-async function driveRequest(url, options={}){
-  if(!driveToken) throw Error('Drive is not connected');
-  const r=await fetch(url,{...options,headers:{
-    ...(options.headers||{}),
-    Authorization:'Bearer '+driveToken
-  }});
-  if(!r.ok) throw Error(await r.text());
-  return r;
-}
-
-async function findDriveFile(){
-  const q=`name='${DRIVE_FILE_NAME}' and trashed=false`;
-  const url='https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&fields=files(id,name,modifiedTime)&pageSize=10&q='+encodeURIComponent(q);
-  const data=await (await driveRequest(url)).json();
-  return data.files?.[0]||null;
-}
-
-async function saveToDrive(){
-  if(!driveToken) return;
-  try{
-    let id=driveFileId;
-    if(!id){
-      const existing=await findDriveFile();
-      id=existing?.id||null;
-    }
-    const body=drivePayload();
-    if(id){
-      await driveRequest('https://www.googleapis.com/upload/drive/v3/files/'+encodeURIComponent(id)+'?uploadType=media',{
-        method:'PATCH',
-        headers:{'Content-Type':'application/json'},
-        body
-      });
-    }else{
-      const meta={name:DRIVE_FILE_NAME,parents:['appDataFolder'],mimeType:'application/json'};
-      const boundary='watchtime_'+Date.now();
-      const multipart=[
-        '--'+boundary,
-        'Content-Type: application/json; charset=UTF-8','',
-        JSON.stringify(meta),
-        '--'+boundary,
-        'Content-Type: application/json','',
-        body,
-        '--'+boundary+'--',''
-      ].join('\r\n');
-      const r=await driveRequest('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{
-        method:'POST',
-        headers:{'Content-Type':'multipart/related; boundary='+boundary},
-        body:multipart
-      });
-      const d=await r.json(); id=d.id;
-    }
-    driveFileId=id;
-    localStorage.setItem('wt_drive_file_id',id);
-    updateDriveButton(true);
-  }catch(e){console.warn('Drive save failed',e);toast('Drive backup failed')}
-}
-
-async function syncFromDrive(){
-  try{
-    const f=await findDriveFile();
-    if(!f){await saveToDrive();toast('Drive backup created');return}
-    driveFileId=f.id;
-    localStorage.setItem('wt_drive_file_id',f.id);
-    const data=await (await driveRequest('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(f.id)+'?alt=media')).json();
-    if(data && Array.isArray(data.watch)){
-      // Merge rather than overwrite, so connecting a new device cannot erase local progress.
-      state.watch=[...new Set([...(state.watch||[]),...(data.watch||[])])];
-      state.watched={...(data.watched||{}),...(state.watched||{})};
-      save();
-      if(state.page==='home') home();
-      toast('Progress synced from Google Drive');
-      await saveToDrive();
-    }
-  }catch(e){console.warn('Drive sync failed',e);toast('Drive sync failed')}
-}
-
-let saveTimer;
-function backupProgress(){
-  save();
-  if(driveToken){
-    clearTimeout(saveTimer);
-    saveTimer=setTimeout(saveToDrive,700);
-  }
-}
-
-go('home');
+/* Google Drive: automatically attempts a silent token refresh after reload. The OAuth grant remains with Google; no Drive token is stored in localStorage. */
+const GOOGLE_CLIENT_ID='119562103767-3jdsmbao6em287rn199n2cuceu0312k4.apps.googleusercontent.com';const DRIVE_SCOPE='https://www.googleapis.com/auth/drive.appdata';const DRIVE_FILE_NAME='watchtime-progress.json';let driveToken=null,driveFileId=localStorage.getItem('wt_drive_file_id')||null,tokenClient=null;
+function driveReady(){return GOOGLE_CLIENT_ID&&!GOOGLE_CLIENT_ID.startsWith('YOUR_')}
+function initGoogle(){if(!driveReady()||!window.google?.accounts?.oauth2)return;tokenClient=google.accounts.oauth2.initTokenClient({client_id:GOOGLE_CLIENT_ID,scope:DRIVE_SCOPE,callback:async resp=>{if(resp.error){state.driveConnected=false;updateDriveButton(false);return}driveToken=resp.access_token;state.driveConnected=true;updateDriveButton(true);await identifyDriveUser();await syncFromDrive()}})}
+async function identifyDriveUser(){try{const r=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+driveToken}});if(r.ok){const d=await r.json();if(d.email){state.driveEmail=d.email;saveLocal();document.getElementById('avatar').textContent=(d.email[0]||'W').toUpperCase()}}}catch(e){}}
+function updateDriveButton(connected){const b=document.getElementById('driveBtn');const st=document.getElementById('driveStatus');if(b)b.textContent=connected?'☁ Drive connected':'☁ Connect Drive';if(st)st.style.display=connected?'inline':'none'}
+function requestDrive(silent){if(!tokenClient)initGoogle();if(!tokenClient)return;tokenClient.requestAccessToken({prompt:silent?'':'consent',hint:state.driveEmail||undefined})}
+function connectDrive(){if(!driveReady()){alert('Add your Google OAuth Web Client ID in public/index.html first.');return}requestDrive(false)}
+window.addEventListener('load',()=>{ensureLists();renderLibraryNav();setTimeout(()=>{initGoogle();if(tokenClient){/* Silent restore: if Google still has the grant, this reconnects without showing account selection. */requestDrive(true)}},900)})
+function drivePayload(){return JSON.stringify({version:2,savedAt:new Date().toISOString(),watch:state.watch,watched:state.watched,episodeMeta:state.episodeMeta,lists:state.lists,listShows:state.listShows})}
+async function driveRequest(url,options={}){if(!driveToken)throw Error('Drive is not connected');const r=await fetch(url,{...options,headers:{...(options.headers||{}),Authorization:'Bearer '+driveToken}});if(!r.ok)throw Error(await r.text());return r}
+async function findDriveFile(){const q=`name='${DRIVE_FILE_NAME}' and trashed=false`;const url='https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&fields=files(id,name,modifiedTime)&pageSize=10&q='+encodeURIComponent(q);const data=await(await driveRequest(url)).json();return data.files?.[0]||null}
+async function saveToDrive(){if(!driveToken)return;try{let id=driveFileId;if(!id){const existing=await findDriveFile();id=existing?.id||null}const body=drivePayload();if(id){await driveRequest('https://www.googleapis.com/upload/drive/v3/files/'+encodeURIComponent(id)+'?uploadType=media',{method:'PATCH',headers:{'Content-Type':'application/json'},body})}else{const meta={name:DRIVE_FILE_NAME,parents:['appDataFolder'],mimeType:'application/json'};const boundary='watchtime_'+Date.now();const multipart=['--'+boundary,'Content-Type: application/json; charset=UTF-8','',JSON.stringify(meta),'--'+boundary,'Content-Type: application/json','',body,'--'+boundary+'--',''].join('\r\n');const r=await driveRequest('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body:multipart});id=(await r.json()).id}driveFileId=id;localStorage.setItem('wt_drive_file_id',id);updateDriveButton(true)}catch(e){console.warn('Drive save failed',e);toast('Drive backup failed')}}
+async function syncFromDrive(){try{const f=await findDriveFile();if(!f){await saveToDrive();toast('Drive backup created');return}driveFileId=f.id;localStorage.setItem('wt_drive_file_id',f.id);const data=await(await driveRequest('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(f.id)+'?alt=media')).json();if(data){state.watch=[...new Set([...(state.watch||[]),...(data.watch||[])])];state.watched={...(data.watched||{}),...(state.watched||{})};state.episodeMeta={...(data.episodeMeta||{}),...(state.episodeMeta||{})};state.lists={...(data.lists||{}),...(state.lists||{})};state.listShows={...(data.listShows||{}),...(state.listShows||{})};ensureLists();saveLocal();renderLibraryNav();if(state.page==='home')home();toast('Progress synced from Google Drive');await saveToDrive()}}catch(e){console.warn('Drive sync failed',e);toast('Drive sync failed')}}
+let saveTimer;function backupProgress(){saveLocal();if(driveToken){clearTimeout(saveTimer);saveTimer=setTimeout(saveToDrive,700)}}
+ensureLists();renderLibraryNav();go('home');
 </script></body></html>
